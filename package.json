@@ -49,6 +49,7 @@
   "dependencies": {
     "@clack/prompts": "^0.7.0",
     "axios": "^1.7.2",
+    "chalk": "^5.3.0",
     "commander": "^12.1.0",
     "fs-extra": "^11.2.0",
     "marked": "^13.0.0"

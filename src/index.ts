@@ -9,6 +9,8 @@ import { osRootDirectory } from './utils';
 import { ConfigItem } from './types';
 import createComponents from './core/components';
 import commitMessage from './core/commit';
+import generatorHooks from './core/hooks';
+import aiCodeReview from './core/code-review';
 
 async function main() {
   console.log(osRootDirectory());
@@ -30,6 +32,14 @@ async function main() {
     .description('AI will automatically generate submission information for you')
     .action(() => {
       commitMessage();
+    });
+
+  program
+    .command('review')
+    .description('Generate a commit message')
+    .description('AI will automatically generate submission information for you')
+    .action(() => {
+      aiCodeReview();
     });
 
   program
@@ -61,6 +71,15 @@ async function main() {
     .description('Add a new component')
     .action(async (name, path) => {
       createComponents({ componentName: name, componentPath: path });
+    });
+
+  program
+    .command('hooks <name>')
+    .description('Add a new Hooks')
+    .action(async (name) => {
+      console.log(name);
+
+      generatorHooks(name);
     });
 
   program.parse(process.argv);
