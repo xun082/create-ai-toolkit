@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true /* Enable all strict type-checking options. */,
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "isolatedModules": true,
+    "baseUrl": ".", // 指定项目的根目录
+    "paths": {
+      "@/*": ["src/*"] // 添加路径别名
+    }
+  },
+  "exclude": ["coverage/", "dist/"],
+  "include": ["src", "./.eslintrc.cjs", "./rollup.config.js"]
+}
