@@ -67,7 +67,7 @@ export async function getUserInput(): Promise<UserSelection | null> {
   const cssOption = await makeSelection('请选择一个CSS选项:', cssOptions);
   if (!cssOption) return null;
 
-  const userInput = await inputDefaultText('请输入内容:', '默认文本');
+  const userInput = await inputDefaultText('请输入该组件的需求:', '创建一个基础的按钮组件');
   if (!userInput) return null;
 
   return { framework, languageType, cssOption, userInput };

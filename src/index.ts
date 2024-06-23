@@ -8,7 +8,7 @@ import { setConfig, getConfig, initializeProject } from './core/config';
 import { osRootDirectory } from './utils';
 import { ConfigItem } from './types';
 import createComponents from './core/components';
-import aiCommit from './core/commit';
+import commitMessage from './core/commit';
 
 async function main() {
   console.log(osRootDirectory());
@@ -29,7 +29,7 @@ async function main() {
     .description('Generate a commit message')
     .description('AI will automatically generate submission information for you')
     .action(() => {
-      aiCommit();
+      commitMessage();
     });
 
   program

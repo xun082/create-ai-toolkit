@@ -1,11 +1,13 @@
 import { marked } from 'marked';
 import path from 'path';
 import fs from 'fs';
+import { outro, spinner } from '@clack/prompts';
 
 import { getUserInput } from './select';
 
 import { UserSelection } from '@/types';
-import { openAiClient, validateFileName, validatePath } from '@/utils';
+import { getOpenAiClient, validateFileName, validatePath } from '@/utils';
+import { OPENAI_CHAT_COMPLETIONS_ENDPOINT } from '@/utils/constants';
 
 interface CodeBlocks {
   [key: string]: string[];
@@ -53,7 +55,13 @@ export default async function createComponents({
 
     const prompts = generatorComponentPrompt(input);
 
-    const response = await openAiClient.post('/v1/chat/completions', {
+    const openAiClient = await getOpenAiClient();
+
+    const s = spinner();
+
+    s.start('AI is generating components for you');
+
+    const response = await openAiClient.post(OPENAI_CHAT_COMPLETIONS_ENDPOINT, {
       model: 'gpt-4o',
       messages: [
         {
@@ -101,8 +109,6 @@ export default async function createComponents({
 
     for (const [key, value] of Object.entries(result)) {
       if (['css', 'less', 'scss'].includes(key)) {
-        console.log(`${key.toUpperCase()} content found:`);
-        //   console.log(value.join("\n\n"));
         const filePath = path.join(outputDir, `index.module.${input.cssOption}`);
         fs.writeFileSync(filePath, value.join('\n\n'), 'utf8');
       } else {
@@ -110,6 +116,9 @@ export default async function createComponents({
         fs.writeFileSync(filePath, value.join('\n\n'), 'utf8');
       }
     }
+
+    s.stop();
+    outro('Component creation complete 🎉🎉🎉');
   } catch (error) {
     console.log(error);
   }
