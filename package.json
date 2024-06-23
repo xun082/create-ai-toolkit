@@ -47,8 +47,11 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@clack/prompts": "^0.7.0",
+    "axios": "^1.7.2",
     "commander": "^12.1.0",
-    "fs-extra": "^11.2.0"
+    "fs-extra": "^11.2.0",
+    "marked": "^13.0.0"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [

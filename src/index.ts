@@ -7,6 +7,7 @@ import packageJson from '../package.json' assert { type: 'json' };
 import { setConfig, getConfig, initializeProject } from './core/config';
 import { osRootDirectory } from './utils';
 import { ConfigItem } from './types';
+import createComponents from './core/components';
 
 async function main() {
   console.log(osRootDirectory());
@@ -51,6 +52,13 @@ async function main() {
       } catch (error) {
         console.error(`Error getting config: ${error}`);
       }
+    });
+
+  program
+    .command('component <name> [path]')
+    .description('Add a new component')
+    .action(async (name, path) => {
+      createComponents({ componentName: name, componentPath: path });
     });
 
   program.parse(process.argv);
