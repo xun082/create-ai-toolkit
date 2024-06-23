@@ -9,3 +9,5 @@ export interface UserSelection {
   cssOption: string;
   userInput: string;
 }
+
+export type CustomHooksSelection = Omit<UserSelection, 'cssOption'>;

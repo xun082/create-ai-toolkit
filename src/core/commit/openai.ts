@@ -1,6 +1,3 @@
-import https from 'https';
-import type { ClientRequest, IncomingMessage } from 'http';
-
 import { createChatRequest } from './prompt';
 
 import { getOpenAiClient } from '@/utils';

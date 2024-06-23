@@ -22,3 +22,5 @@ function generatorComponentPrompt({
     ${cssRequirement}
     要求：生成的代码应该符合TypeScript的类型检查要求，并且只返回代码部分，不要包含其他任何描述信息。代码中不需要携带有文件名的注释。`;
 }
+
+export { generatorComponentPrompt };
