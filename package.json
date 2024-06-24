@@ -1,5 +1,5 @@
 {
-  "name": "create-ai-toolkit",
+  "name": "create-ai-toolkit-test",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -18,7 +18,13 @@
     "lint": "eslint \"src/**/*.{js,ts,jsx,tsx}\" --fix",
     "lint:ci": "eslint \"src/**/*.{js,ts,jsx,tsx}\""
   },
-  "keywords": [],
+  "keywords": [
+    "ai",
+    "git"
+  ],
+  "files": [
+    "dist/**/*"
+  ],
   "author": "Moment",
   "license": "MIT",
   "devDependencies": {
