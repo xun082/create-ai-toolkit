@@ -1,7 +1,9 @@
 import * as path from 'path';
-import * as os from 'os';
-export * from './openai';
 import { promises as fs } from 'fs';
+import * as os from 'os';
+
+export * from './openai';
+export * from './color';
 
 /**
  * 获取操作系统的根目录。
