@@ -1,14 +1,13 @@
 import fs from 'node:fs';
-import chalk from 'chalk';
 import { cancel, intro, spinner } from '@clack/prompts';
 
 import selectCommitMsg from './gitCommit';
 import { createChatCompletion } from './openai';
 
-import { getFilesChangedInGitAdd, allStagedFiles2Message } from '@/utils';
+import { getFilesChangedInGitAdd, allStagedFiles2Message, colorize } from '@/utils';
 
 export default async function commitMessage() {
-  intro(chalk.bgCyan(chalk.black('开始读取缓存区文件更改')));
+  intro(colorize('开始读取缓存区文件更改', 'blue'));
   // 获取缓存区的文件列表
   const files = getFilesChangedInGitAdd();
 
