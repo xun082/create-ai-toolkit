@@ -52,8 +52,13 @@ export default async function commitMessage() {
     });
     if (answer) {
       s.start('正在提交...');
-      autoCommit(commitMsg);
+      const code = await autoCommit(commitMsg);
       s.stop();
+      if (code === 0) {
+        outro('提交成功');
+      } else {
+        cancel('提交失败');
+      }
     }
   } catch (err) {
     s.stop();

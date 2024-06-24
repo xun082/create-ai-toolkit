@@ -6,11 +6,7 @@ export function getFilesChangedInGitAdd() {
 
   // 过滤掉 lock 文件
   const ignoredPatterns = [/package-lock\.json$/, /yarn\.lock$/, /pnpm-lock\.yaml$/];
-  const filteredFiles = files.filter(
-    (file) => file && !ignoredPatterns.some((pattern) => pattern.test(file)),
-  );
-
-  return filteredFiles;
+  return files.filter((file) => file && !ignoredPatterns.some((pattern) => pattern.test(file)));
 }
 
 interface Staged {
@@ -25,6 +21,11 @@ export function allStagedFiles2Message(staged: Staged[]) {
 /**
  * 自动执行提交信息
  */
-export function autoCommit(commitMsg: string) {
-  execSync(`git commit -m "${commitMsg}"`);
+export async function autoCommit(commitMsg: string) {
+  try {
+    const result = execSync(`git commit -m "${commitMsg}"`);
+    return 0;
+  } catch (e) {
+    return -1;
+  }
 }
