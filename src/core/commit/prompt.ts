@@ -60,7 +60,6 @@ export const createChatRequest = (diff: string, options: { locale: string; maxLe
   const { locale, maxLength } = options;
   return {
     model: 'gpt-4o',
-    // model: 'gpt-3.5-turbo',
     messages: [
       { role: 'system', content: generatePrompt(locale, maxLength) },
       { role: 'user', content: diff },

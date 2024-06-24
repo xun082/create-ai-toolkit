@@ -2,10 +2,9 @@ import fs from 'node:fs';
 import { intro, outro, spinner } from '@clack/prompts';
 import path from 'node:path';
 
-import { allStagedFiles2Message, getFilesChangedInGitAdd } from './help';
 import { codeReviewPrompt } from './prompt';
 
-import { getOpenAiClient } from '@/utils';
+import { getOpenAiClient, getFilesChangedInGitAdd, allStagedFiles2Message } from '@/utils';
 import { OPENAI_CHAT_COMPLETIONS_ENDPOINT } from '@/utils/constants';
 
 export default async function commitMessage() {

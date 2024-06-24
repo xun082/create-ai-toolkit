@@ -112,7 +112,7 @@ async function main() {
       ],
       [
         colorize('review', 'cyan'),
-        'Generate a code review\nAI will automatically generate code review information for you.\n\nExample:\n  $ ai review',
+        `Generate a code review\nAI will automatically generate code review information for you.\n\nExample:\n  ${colorize('$ ai review', 'blue')}`,
       ],
       [
         colorize('set <key> <value>', 'cyan'),

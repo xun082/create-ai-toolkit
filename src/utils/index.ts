@@ -1,6 +1,9 @@
 import * as path from 'path';
 import { promises as fs } from 'fs';
 import * as os from 'os';
+import { execSync } from 'node:child_process';
+
+import { Staged } from '@/types';
 
 export * from './openai';
 export * from './color';
@@ -51,4 +54,27 @@ export async function validatePath(componentPath: string): Promise<void> {
   } catch (error) {
     throw new Error('Invalid path. The specified directory does not exist.');
   }
+}
+
+export function getFilesChangedInGitAdd() {
+  const gitDiff = execSync('git diff --cached --name-status', { encoding: 'utf-8' });
+  const files = gitDiff.split('\n');
+
+  // 过滤掉 lock 文件和被删除的文件
+  const ignoredPatterns = [/package-lock\.json$/, /yarn\.lock$/, /pnpm-lock\.yaml$/];
+  const filteredFiles = files
+    .map((line) => {
+      const [status, file] = line.trim().split('\t');
+      return { status, file };
+    })
+    .filter(({ status, file }) => {
+      return file && status !== 'D' && !ignoredPatterns.some((pattern) => pattern.test(file));
+    })
+    .map(({ file }) => file);
+
+  return filteredFiles;
+}
+
+export function allStagedFiles2Message(staged: Staged[]) {
+  return staged.map((item) => item.content).join('\n');
 }
