@@ -18,10 +18,15 @@ export default async (aiCommitMsg: string) => {
     inactive: '取消',
   });
   if (answer) {
+    console.log('正在提交中。。。');
     await selectAIMsgOrManualMsg(aiCommitMsg);
   } else {
     // 让用户自己手动输入提交信息再提交
-    const manualMsg = await text({ message: 'commit信息', placeholder: '请输入commit信息' });
+    const manualMsg = await text({
+      message: '请您手动输入需要的commit信息',
+      placeholder: 'commit信息',
+    });
+    console.log('正在提交中。。。');
     if (typeof manualMsg === 'string' && manualMsg) {
       await selectAIMsgOrManualMsg(manualMsg as string);
     }
