@@ -27,26 +27,23 @@ export default async function commitMessage() {
 
   try {
     // 将缓存的文件内容转换为消息
-    // const content = allStagedFiles2Message(staged);
+    const content = allStagedFiles2Message(staged);
 
     // 使用 OpenAI API 生成提交信息
-    // const message = await createChatCompletion(content, { locale: 'zh-CN', maxLength: 200 });
+    const message = await createChatCompletion(content, { locale: 'zh-CN', maxLength: 200 });
 
     // 检查 OpenAI API 的响应结构
-    // if (!message || !message.choices || !message.choices[0] || !message.choices[0].message) {
-    //   cancel('OpenAI API 响应结构无效');
-    //   process.exit(0);
-    // }
+    if (!message || !message.choices || !message.choices[0] || !message.choices[0].message) {
+      cancel('OpenAI API 响应结构无效');
+      process.exit(0);
+    }
 
-    // const completion = message.choices[0].message.content;
+    const completion = message.choices[0].message.content;
 
     // 去除不需要的字符
-    // const result = completion.replace(/[*_`~]/g, '');
-
-    const commitMsg = 'ci: test commit';
+    const aiCommitMsg = completion.replace(/[*_`~]/g, '');
     s.stop();
-    note(commitMsg);
-    await selectCommitMsg(commitMsg);
+    await selectCommitMsg(aiCommitMsg);
   } catch (err) {
     s.stop();
     console.error('错误:', err);

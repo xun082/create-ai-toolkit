@@ -29,3 +29,8 @@ export async function autoCommit(commitMsg: string) {
     return -1;
   }
 }
+
+// TODO: 看看以后有什么更好的方式提醒用户，目前先打log
+export function remindCommiting() {
+  console.log('正在提交中...');
+}

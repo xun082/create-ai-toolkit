@@ -1,6 +1,6 @@
-import { cancel, confirm, outro, text } from '@clack/prompts';
+import { cancel, confirm, note, outro, text } from '@clack/prompts';
 
-import { autoCommit } from '@/core/commit/help';
+import { autoCommit, remindCommiting } from '@/core/commit/help';
 
 async function selectAIMsgOrManualMsg(msg: string) {
   const code = await autoCommit(msg);
@@ -12,13 +12,14 @@ async function selectAIMsgOrManualMsg(msg: string) {
 }
 
 export default async (aiCommitMsg: string) => {
+  note(aiCommitMsg);
   const answer = await confirm({
-    message: '是否使用以上提交信息？',
-    active: '确定',
-    inactive: '取消',
+    message: '是否满意AI生成的提交信息？',
+    active: '满意',
+    inactive: '不满意',
   });
   if (answer) {
-    console.log('正在提交中。。。');
+    remindCommiting();
     await selectAIMsgOrManualMsg(aiCommitMsg);
   } else {
     // 让用户自己手动输入提交信息再提交
@@ -26,7 +27,7 @@ export default async (aiCommitMsg: string) => {
       message: '请您手动输入需要的commit信息',
       placeholder: 'commit信息',
     });
-    console.log('正在提交中。。。');
+    remindCommiting();
     if (typeof manualMsg === 'string' && manualMsg) {
       await selectAIMsgOrManualMsg(manualMsg as string);
     }
