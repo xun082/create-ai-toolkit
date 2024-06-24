@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import chalk from 'chalk';
 import { cancel, intro, outro, spinner, confirm, text, note } from '@clack/prompts';
 
+import selectCommitMsg from './gitCommit';
 import { allStagedFiles2Message, autoCommit, getFilesChangedInGitAdd } from './help';
 import { createChatCompletion } from './openai';
 
@@ -42,23 +43,10 @@ export default async function commitMessage() {
     // 去除不需要的字符
     // const result = completion.replace(/[*_`~]/g, '');
 
-    s.stop();
     const commitMsg = 'ci: test commit';
+    s.stop();
     note(commitMsg);
-    const answer = await confirm({
-      message: '是否使用以上提交信息？',
-      active: '确定',
-      inactive: '取消',
-    });
-    if (answer) {
-      chalk.cyan('正在努力提交ing...');
-      const code = await autoCommit(commitMsg);
-      if (code === 0) {
-        outro('提交成功');
-      } else {
-        cancel('提交失败');
-      }
-    }
+    await selectCommitMsg(commitMsg);
   } catch (err) {
     s.stop();
     console.error('错误:', err);
