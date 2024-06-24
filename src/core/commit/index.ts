@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import { intro, outro, spinner } from '@clack/prompts';
 
-import { allStagedFiles2Message, getFilesChangedInGitAdd } from './help';
 import { createChatCompletion } from './openai';
+
+import { getFilesChangedInGitAdd, allStagedFiles2Message } from '@/utils';
 
 export default async function commitMessage() {
   intro('-- 开始读取缓存区文件更改');

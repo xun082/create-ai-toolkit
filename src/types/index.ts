@@ -11,3 +11,8 @@ export interface UserSelection {
 }
 
 export type CustomHooksSelection = Omit<UserSelection, 'cssOption'>;
+
+export interface Staged {
+  filename: string;
+  content: string;
+}
