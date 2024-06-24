@@ -59,9 +59,9 @@ This tool can perform static analysis and reviews of the code, providing optimiz
 Ensure your Node.js version is v18 or above, and globally install create-ai-toolkit:
 
 ```bash
-npm install -g ai-scaffold-toolkit
+npm install -g create-ai-toolkit-test
 # or using pnpm
-pnpm add -g ai-scaffold-toolkit
+pnpm add -g create-ai-toolkit-test
 ```
 
 ### 2. Add API Key
