@@ -51,9 +51,8 @@ export default async function commitMessage() {
       inactive: '取消',
     });
     if (answer) {
-      spinner().start('正在提交...');
+      chalk.cyan('正在努力提交ing...');
       const code = await autoCommit(commitMsg);
-      spinner().stop();
       if (code === 0) {
         outro('提交成功');
       } else {
