@@ -21,3 +21,10 @@ interface Staged {
 export function allStagedFiles2Message(staged: Staged[]) {
   return staged.map((item) => item.content).join('\n');
 }
+
+/**
+ * 自动执行提交信息
+ */
+export function autoCommit(commitMsg: string) {
+  execSync(`git commit -m "${commitMsg}"`);
+}
