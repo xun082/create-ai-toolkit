@@ -1,10 +1,11 @@
 import fs from 'node:fs';
 import chalk from 'chalk';
-import { cancel, intro, outro, spinner, confirm, text, note } from '@clack/prompts';
+import { cancel, intro, spinner } from '@clack/prompts';
 
 import selectCommitMsg from './gitCommit';
-import { allStagedFiles2Message, autoCommit, getFilesChangedInGitAdd } from './help';
 import { createChatCompletion } from './openai';
+
+import { getFilesChangedInGitAdd, allStagedFiles2Message } from '@/utils';
 
 export default async function commitMessage() {
   intro(chalk.bgCyan(chalk.black('开始读取缓存区文件更改')));

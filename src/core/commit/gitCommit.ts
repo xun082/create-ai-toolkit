@@ -1,6 +1,6 @@
 import { cancel, confirm, note, outro, text } from '@clack/prompts';
 
-import { autoCommit, remindCommiting } from '@/core/commit/help';
+import { autoCommit, remindCommiting } from '@/utils';
 
 async function selectAIMsgOrManualMsg(msg: string) {
   const code = await autoCommit(msg);
