@@ -1,14 +1,14 @@
-import { marked } from 'marked';
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
+import { marked } from 'marked';
 import { outro, spinner } from '@clack/prompts';
 
 import { getUserInput } from './select';
 import { generatorComponentPrompt } from './prompt';
 
-import { UserSelection } from '@/types';
 import { getOpenAiClient, validateFileName, validatePath } from '@/utils';
 import { OPENAI_CHAT_COMPLETIONS_ENDPOINT } from '@/utils/constants';
+import { UserSelection } from '@/types';
 
 interface CodeBlocks {
   [key: string]: string[];
@@ -36,16 +36,12 @@ export default async function createComponents({
     const openAiClient = await getOpenAiClient();
 
     const s = spinner();
-
     s.start('AI is generating components for you');
 
     const response = await openAiClient.post(OPENAI_CHAT_COMPLETIONS_ENDPOINT, {
       model: 'gpt-4o',
       messages: [
-        {
-          role: 'system',
-          content: 'You are a helpful assistant that generates component code.',
-        },
+        { role: 'system', content: 'You are a helpful assistant that generates component code.' },
         { role: 'user', content: prompts },
       ],
       temperature: 0.7,
@@ -82,12 +78,12 @@ export default async function createComponents({
     const outputDir = path.join(process.cwd(), finalComponentPath, componentName);
 
     if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir);
+      fs.mkdirSync(outputDir, { recursive: true });
     }
 
     for (const [key, value] of Object.entries(result)) {
       if (['css', 'less', 'scss'].includes(key)) {
-        const filePath = path.join(outputDir, `index.module.${input.cssOption}`);
+        const filePath = path.join(outputDir, `index.module.${input.cssOption || 'css'}`);
         fs.writeFileSync(filePath, value.join('\n\n'), 'utf8');
       } else {
         const filePath = path.join(outputDir, `index.tsx`);
@@ -98,6 +94,7 @@ export default async function createComponents({
     s.stop();
     outro('Component creation complete 🎉🎉🎉');
   } catch (error) {
-    console.log(error);
+    console.error('Error creating component:', error);
+    // Handle specific errors or log them appropriately
   }
 }
