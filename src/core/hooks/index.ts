@@ -70,13 +70,13 @@ async function writeCodeBlocksToFile(
 }
 
 export default async function generatorHooks(fileName: string) {
+  const s = spinner();
   try {
     await validateFileName(fileName);
 
     const input = (await getUserInput()) as CustomHooksSelection;
     const prompts = generatorComponentPrompt(input);
 
-    const s = spinner();
     s.start('AI is generating hooks for you');
 
     const completion = await getOpenAIResponse(prompts);
@@ -94,9 +94,10 @@ export default async function generatorHooks(fileName: string) {
 
     await writeCodeBlocksToFile(result, outputDir, fileName, prefix);
 
-    s.stop();
     outro('Hooks creation complete 🎉🎉🎉');
   } catch (error) {
     console.error(error);
+  } finally {
+    s.stop();
   }
 }

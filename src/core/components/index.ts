@@ -21,6 +21,7 @@ export default async function createComponents({
   componentName: string;
   componentPath: string | undefined;
 }) {
+  const s = spinner();
   try {
     await validateFileName(componentName);
 
@@ -35,7 +36,6 @@ export default async function createComponents({
 
     const openAiClient = await getOpenAiClient();
 
-    const s = spinner();
     s.start('AI is generating components for you');
 
     const response = await openAiClient.post(OPENAI_CHAT_COMPLETIONS_ENDPOINT, {
@@ -91,10 +91,11 @@ export default async function createComponents({
       }
     }
 
-    s.stop();
     outro('Component creation complete 🎉🎉🎉');
   } catch (error) {
     console.error('Error creating component:', error);
     // Handle specific errors or log them appropriately
+  } finally {
+    s.stop();
   }
 }
